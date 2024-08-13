@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import HelloWorld from './001//HelloWorld';
+import HelloWorld from './001/HelloWorld';
+import Counter from './002/Counter';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(
@@ -10,7 +11,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <HelloWorld />
+    <Counter />
   </React.StrictMode>
 );
 
