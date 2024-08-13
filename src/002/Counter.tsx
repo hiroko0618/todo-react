@@ -7,13 +7,17 @@ class Counter extends Component {
 		super(props);
 		this.state = {
 			title : Utils.title,
-			value : 0,
+			value : 2147483647,
 			buttonText1 : '+',
 			buttonText2 : '-'
 		};
-//		this.onClick1 = this.onClick1.bind(this);
-//		this.onClick2 = this.onClick2.bind(this);
 	}
+	onClick1 = () => {
+    this.setState({ value: Utils.add(this.state.value) });
+  };
+	onClick2 = () => {
+		this.setState({ value: Utils.sub(this.state.value) });
+	};
 	render() {
 		return (
 			<div class="container">
