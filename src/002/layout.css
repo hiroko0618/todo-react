@@ -6,7 +6,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
-  background-color: blue;
+  min-width: 100vw;
+  background-color: #A3E4D7;
 }
 
 code {
@@ -23,12 +24,41 @@ p {
   align-items: center;
   justify-content: center;
   background-color: white;
+  width: 350px;
+  height: 700px;
+  border-radius: 5%;
+  margin: auto;
 }
 
 button {
-  border: solid blue 1px;
+  display: inline;
+  align-items: center;
+  justify-content: center;
+  border: solid #A3E4D7 1px;
   border-radius: 50%;
-  background-color: white;
-  color: blue;
-  padding: 30px;
+  background-color: #fff;
+  color: #A3E4D7;
+  height: 50px;
+  width: 50px;
+  font-size: 45px;
+  text-align: center;
+  line-height: 50px;
+}
+
+.title {
+  padding-top: 20px;
+}
+
+.value {
+  font-size: 5rem;
+  font: bold;
+  color: #A3E4D7;
+  padding: 0;
+  margin: 0;
+}
+
+.btn-area {
+  width: 108px;
+  padding: 0 121px;
+  margin-top: 10px;
 }
