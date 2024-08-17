@@ -1,12 +1,16 @@
 import React, {useState} from 'react';
 import './layout.css'; 
 import * as Utils from './utils';
+import Modal from './Modal';
 
 const Todo = () => {
 	const [title, setTitle] = useState(Utils.title);
-	const [addBtn, setAddbtn] = useState('+');
-	const [closeBtn, setClosebtn] = useState('✕');
-	const [key, setKey] = useState(0);
+	const [addBtn, setAddBtn] = useState('+');
+	const [closeBtn, setCloseBtn] = useState('✕');
+	const [isModalOpen, setModalOpen] = useState(false);
+
+	const handlerAddBtn = () => { setModalOpen(true) };
+	const handlerCloseModal = () => { setModalOpen(false) };
 
 	return (
 		<div class="container">
@@ -22,8 +26,9 @@ const Todo = () => {
 				</dl>
 			</div>
 			<div class="btn-area">
-				<button class="add">{addBtn}</button>
+				<button class="add" onClick={handlerAddBtn}>{addBtn}</button>
 			</div>
+			<Modal isOpen={isModalOpen} onClose={handlerCloseModal}/>
 		</div>
 	);
 }
