@@ -20,7 +20,8 @@ const Todo = () => {
       <div class="list-area">
 				<dl>
 					<dd class="list-item">
-						<input type="checkbox" />
+						<input class="checkbox" type="checkbox" />
+						<p>{}</p>
 						<button class="close">{closeBtn}</button>
 					</dd>
 				</dl>

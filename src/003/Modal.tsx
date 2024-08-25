@@ -9,20 +9,28 @@ const Modal = ({ isOpen, onClose }) => {
 
 	if (!isOpen) return null;
 
+	const handleSave = () => {
+		const text = 'New Todo';
+		onSave(text);
+		onClose();
+	}
+
 	return (
-		<div class="modal">
-			<div class="title-area">
-				<p class="title">{title}</p>
-			</div>
-      <div class="form-area">
-				<form>
-					<input type="text"></input>
-					<span>{errMsg}</span>
-				</form>
-			</div>
-			<div class="btn-area">
-				<button class="addlist">{addBtn}</button>
-				<button class="cancel" onClick={onClose}>{cancelBtn}</button>
+		<div class="overlay">
+			<div class="modal">
+				<div class="mtitle-area">
+					<p class="mtitle">{title}</p>
+				</div>
+      	<div class="form-area">
+					<form>
+						<input class="inputtext" type="text"></input><br />
+						<span class="error">{errMsg}</span>
+					</form>
+				</div>
+				<div class="mbtn-area">
+					<button class="addlist" onClick={handleSave}>{addBtn}</button>&nbsp;&nbsp;
+					<button class="cancel" onClick={onClose}>{cancelBtn}</button>
+				</div>
 			</div>
 		</div>
 	);
