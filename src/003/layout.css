@@ -62,7 +62,7 @@ p.title {
  border-radius: 50%;
 }
 
-.close {
+.delete {
   position: absolute;
   top: 16px;
   right: 16px;
@@ -141,7 +141,7 @@ p.mtitle {
 .mbtn-area {
   position: absolute;
   top: 120px;
-  right: 10px;
+  right: 18px;
   display: inline;
 }
 
@@ -157,7 +157,7 @@ p.mtitle {
   position: absolute;
   top: 20px;
   height: 30px;
-  width: 260px;
+  width: 250px;
   border: #202f55 solid 3px;
   border-radius: 5px;
   padding-left: 10px;
