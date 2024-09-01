@@ -202,3 +202,11 @@ p.mtitle {
   
   z-index: 1000;
 }
+
+.text-item {
+  font-size: 24px;
+  margin-top: 0;
+  margin-bottom: 0;
+  position: absolute;
+  left: 48px;
+}

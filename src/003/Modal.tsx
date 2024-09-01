@@ -11,30 +11,35 @@ const Modal = ({ isOpen, onClose, onSave }) => {
 	if (!isOpen) return null;
 
 	const handleSave = () => {
-		onSave(inputValue);
+		const newTodo = {
+			type: 'text',
+			content: inputValue,
+		};
+		console.log(newTodo);
+		onSave(newTodo);
 		onClose();
 	}
 
 	return (
-		<div class="overlay">
-			<div class="modal">
-				<div class="mtitle-area">
-					<p class="mtitle">{title}</p>
+		<div className="overlay">
+			<div className="modal">
+				<div className="mtitle-area">
+					<p className="mtitle">{title}</p>
 				</div>
-      	<div class="form-area">
+      	<div className="form-area">
 					<form>
 						<input 
-							class="inputtext" 
+							className="inputtext" 
 							type="text" 
 							value={inputValue}
 							onChange={(e) => setInputValue(e.target.value)}
 						/><br />
-						<span class="error">{errMsg}</span>
+						<span className="error">{errMsg}</span>
 					</form>
 				</div>
-				<div class="mbtn-area">
-					<button class="addlist" onClick={handleSave}>{addBtn}</button>&nbsp;&nbsp;
-					<button class="cancel" onClick={onClose}>{cancelBtn}</button>
+				<div className="mbtn-area">
+					<button className="addlist" onClick={handleSave}>{addBtn}</button>&nbsp;&nbsp;
+					<button className="cancel" onClick={onClose}>{cancelBtn}</button>
 				</div>
 			</div>
 		</div>

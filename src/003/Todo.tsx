@@ -17,7 +17,10 @@ const Todo = () => {
 	const handlerCloseModal = () => { setModalOpen(false) };
 	
 	const handleAddTodo = (newTodo) => {
-		setTodos([...todos, newTodo]); 
+		setTodos ((prevTodos) =>{
+			const updateTodos = [...prevTodos, newTodo];
+			return updateTodos;
+		}); 
 	};
 
 	const handleRemoveTodo = (index) => {
@@ -25,19 +28,24 @@ const Todo = () => {
 	};
 
 	return (
-		<div class="container">
-			<div class="title-area">
-				<p class="title">{title}</p>
+		<div className="container">
+			<div className="title-area">
+				<p className="title">{title}</p>
 			</div>
-      <div class="list-area">
+      <div className="list-area">
 				<dl>
 					{todos.map((todo, index) => (
-						<Items key={index} text={todo} onRemove={() => handleRemoveTodo(index)} />
+					  <React.Fragment key={index} >
+						<Items
+							type={todo.type}
+							content={todo.content}
+							onRemove={() => handleRemoveTodo(index)} />
+						</React.Fragment>
 					))}
 				</dl>
 			</div>
-			<div class="btn-area">
-				<button class="add" onClick={handlerAddBtn}>{addBtn}</button>
+			<div className="btn-area">
+				<button className="add" onClick={handlerAddBtn}>{addBtn}</button>
 			</div>
 			<Modal isOpen={isModalOpen} onClose={handlerCloseModal} onSave={handleAddTodo} />
 		</div>

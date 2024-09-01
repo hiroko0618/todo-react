@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
 import './layout.css';
 
-const Items = ( {text, onRemove} ) => {
+const Items = ( {type, content, onRemove} ) => {
 	const [deleteBtn, setDeleteBtn] = useState('✕');	
 
 	return (
-			<dd class="list-item">
-				<input type="checkbox" class="checkbox" />
-				<p>{text}</p>
-				<button onClick={onRemove} class="delete">{deleteBtn}</button>
-			</dd>	
+			<dt className="list-item">
+				{type === 'checkbox' && <input class="checkbox" checked={content} /> }
+				{type === 'text' && <p class="text-item">{content}</p> }
+				{type === 'button' && <button onClick={onRemove} class="delete">{deleteBtn}</button> }
+			</dt>
 	);
 }
 
