@@ -17,6 +17,7 @@ const Modal = ({ isOpen, onClose, onSave }) => {
 		};
 		console.log(newTodo);
 		onSave(newTodo);
+		setInputValue('');
 		onClose();
 	}
 

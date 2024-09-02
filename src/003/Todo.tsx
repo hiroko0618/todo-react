@@ -14,7 +14,9 @@ const Todo = () => {
 		setModalOpen(true);
 	};
 	
-	const handlerCloseModal = () => { setModalOpen(false) };
+	const handlerCloseModal = () => { 
+		setModalOpen(false);
+	};
 	
 	const handleAddTodo = (newTodo) => {
 		setTodos ((prevTodos) =>{
@@ -33,7 +35,7 @@ const Todo = () => {
 				<p className="title">{title}</p>
 			</div>
       <div className="list-area">
-				<dl>
+				<ul>
 					{todos.map((todo, index) => (
 					  <React.Fragment key={index} >
 						<Items
@@ -42,7 +44,7 @@ const Todo = () => {
 							onRemove={() => handleRemoveTodo(index)} />
 						</React.Fragment>
 					))}
-				</dl>
+				</ul>
 			</div>
 			<div className="btn-area">
 				<button className="add" onClick={handlerAddBtn}>{addBtn}</button>

@@ -90,16 +90,10 @@ p.title {
 } 
 
 .list-item {
-  position: absolute;
-  left: 0px;
-  top: 0px;
+  list-style: none;
   font-size: 36px;
   width: 350px;
-  height: 40px;
-  padding-top: 2px;
-  margin: 0;
-  display: inline;
-  line-height: 50px;
+  height: 36px;
 }
 
 .modal {
