@@ -7,14 +7,15 @@ const Modal = ({ isOpen, onClose, onSave }) => {
 	const [cancelBtn, setCancelBtn] = useState('Cancel');
 	const [errMsg, setErrMsg] = useState('Please enter the task name.');
 	const [inputValue, setInputValue] = useState('');
+	const [deleteBtn, setDeleteBtn] = useState('✕');
 
 	if (!isOpen) return null;
 
 	const handleSave = () => {
-		const newTodo = {
-			type: 'text',
-			content: inputValue,
-		};
+		const newTodo = [
+			{ type: 'text', content: inputValue},
+			{ type: 'button', content: deleteBtn}
+		]
 		console.log(newTodo);
 		onSave(newTodo);
 		setInputValue('');
