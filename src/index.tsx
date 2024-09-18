@@ -5,6 +5,7 @@ import App from './App';
 import HelloWorld from './001/HelloWorld';
 import Counter from './002/Counter';
 import Todo from './003/Todo';
+import Stopwatch from './004/Stopwatch';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(
@@ -12,7 +13,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Todo />
+    <Stopwatch />
   </React.StrictMode>
 );
 
