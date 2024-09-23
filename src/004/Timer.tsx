@@ -2,57 +2,46 @@ import React, { useState, useRef } from 'react';
 import './layout.css';
 
 function Timer () {
-    const [text, setText] = useState("00:00");
-
-    const [isNumber, setIsNumber] = useState(false);
-    const [isTime, setIsTime] = useState(false);
-
+    const [text, setText] = useState("");
+    
     const [errMsg, setErrMsg] = useState("");
-    const [errFlag1, setErrFlag1] = useState(false);
-    const [errFlag2, setErrFlag2] = useState(false);
 
     const [time, setTime] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
 
     const handleChange = (event) => {
         // 入力値を取得
-        var text = event.target.value;
-        setText(text);
-        
-        var pattern = /^([01][0-9]|2[0-3]):[0-5][0-9]$/;
-        setIsNumber(isNaN(text.trim().slice(0,2)+text.slice(2,4)) ? true : false);
-        setIsTime(pattern.test(text.trim()) ? true : false);
+        var input = event.target.value;
+        var pattern = /^[0-9]$/;
+        //var isTime = !/^([01][0-9]|2[0-3]):[0-5][0-9]$/.test(input);
 
-        if (0 < text.length) {
-            // 数値以外が入力された場合
-            setErrFlag1(isNumber ? true : false);
-            if (errFlag1) {
-                setErrMsg("数字を入力してください。");
-                return; 
-            } else {
-                setErrMsg("");
-            }
-
-            // 数値以外が入力された場合
-            if (4 == text.replaceAll(":", "").length) {
-                text = text.slice(0, 2) + ":" + text.slice(2, 4);
-                setText(text);
-                setErrFlag2(isTime ? true : false);
-            } 
-
-            if (errFlag2) {
-                setErrMsg("有効な時刻ではありません。");
-                return;
-            } else {
-                setErrMsg("");
-            }    
-        } else {
-            setErrFlag1(false);
-            setErrFlag2(false);
-            setErrMsg("");
+        if (!pattern.test(input) ? true : false) {
+            setErrMsg("数値を入力してください。");
+            setText(input);
+            return;
         }
+        setErrMsg("");
+        //setText(input);
+        formatInput(input);
     }
 
+    const formatInput = (input) => {
+        const num = parseInt(input, 10);
+        if (!num && "" == input) {
+            setText("00:00");
+            return;
+        }
+
+        const minutes = Math.floor(num / 60);
+        const seconds = Math.floor(num % 60);
+
+        const formattedMinutes = String(minutes).padStart(2, "0");
+        const formattedSeconds = String(seconds).padStart(2, "0");
+
+        setText(`${formattedMinutes}:${formattedSeconds}`);
+        return;
+    }
+    
     function handleStart() {
     }
 
