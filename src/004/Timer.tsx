@@ -2,44 +2,48 @@ import React, { useState, useRef } from 'react';
 import './layout.css';
 
 function Timer () {
-    const [text, setText] = useState("");
-    
+    const [formattedText, setFormattedText] = useState("00:00");
+    const [rawInput, setRawInput] = useState("");    
     const [errMsg, setErrMsg] = useState("");
 
     const [time, setTime] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
 
     const handleChange = (event) => {
         // 入力値を取得
         var input = event.target.value;
-        var pattern = /^[0-9]$/;
-        //var isTime = !/^([01][0-9]|2[0-3]):[0-5][0-9]$/.test(input);
+        var pattern = /^[0-9]*$/;
 
         if (!pattern.test(input) ? true : false) {
+            setRawInput(input);
             setErrMsg("数値を入力してください。");
-            setText(input);
             return;
         }
         setErrMsg("");
-        //setText(input);
-        formatInput(input);
+        setRawInput(input);
+        setIsEditing(true);
+    }
+
+    const handleBlur = () => {
+        if ("" == rawInput) {
+            setFormattedText("00:00");
+        } else {
+            setFormattedText(formatInput(rawInput));
+        }
+        setIsEditing(false);
+    }
+    
+    const handleFocus = () => {
+        setIsEditing(true);
     }
 
     const formatInput = (input) => {
-        const num = parseInt(input, 10);
-        if (!num && "" == input) {
-            setText("00:00");
-            return;
-        }
+        const padInput = String(input).padStart(4, "0");
+        const minutes = padInput.slice(0, 2);
+        const seconds = padInput.slice(2, 4);
 
-        const minutes = Math.floor(num / 60);
-        const seconds = Math.floor(num % 60);
-
-        const formattedMinutes = String(minutes).padStart(2, "0");
-        const formattedSeconds = String(seconds).padStart(2, "0");
-
-        setText(`${formattedMinutes}:${formattedSeconds}`);
-        return;
+        return `${minutes}:${seconds}`;
     }
     
     function handleStart() {
@@ -50,18 +54,22 @@ function Timer () {
     }
 
     function handleReset() {
-        setText("");
+        setRawInput("");
+        setFormattedText("00:00");
+        setIsEditing(true);
     }
 
     return (
         <div className="container">
             <div className="input-area">
                 <input 
-                    value={text} 
-                    onChange={handleChange} 
+                    value={isEditing ? rawInput : formattedText} 
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    onFocus={handleFocus} 
                     type="text" 
                     placeholder="00:00" 
-                    maxLength={5} 
+                    maxLength={4} 
                     className="input-text"
                 />
                 <span><p className="error">{errMsg}</p></span>
