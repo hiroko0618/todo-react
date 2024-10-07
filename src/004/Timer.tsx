@@ -1,6 +1,5 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './layout.css';
-import { setInterval } from 'timers/promises';
 
 function Timer () {
     const [formattedText, setFormattedText] = useState("00:00");
@@ -42,8 +41,8 @@ function Timer () {
 
     const formatInput = (input) => {
         const padInput = String(input).padStart(4, "0");
-        var formattedMinutes = padInput.slice(0, 2);
-        var formattedSeconds = padInput.slice(2, 4);
+        var formattedMinutes = padInput.slice(0, 2).toString();
+        var formattedSeconds = padInput.slice(2, 4).toString().padStart(2, "0");
 
         if (Number(formattedSeconds) >= 60) {
             formattedMinutes = (Number(formattedMinutes) + 1).toString();
@@ -56,29 +55,56 @@ function Timer () {
         return `${formattedMinutes}:${formattedSeconds}`;
     }
     
+    const formatTime = (inputTime) => {
+        const minutes = Math.floor(inputTime / 60000).toString().padStart(2, "0");
+        const seconds = Math.floor((inputTime % 60000) / 1000).toString().padStart(2, "0");
+
+        return `${minutes}:${seconds}`;
+    }
+
     function handleStart() {
         const inputTime = rawInput.replace(":", "");
         const minutes = Number(inputTime.slice(0, 2)) * 60000;
+        const seconds = Number(inputTime.slice(2, 4)) * 1000;
+        const totalMilliseconds = minutes + seconds;
 
-        setTime(minutes);
+        setTime(totalMilliseconds);
         
-        intervalRef.current = (() => {
-            setTime(prevTime => prevTime - 1);
+        if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+        }
+
+        intervalRef.current = setInterval(() => {
+            setTime((prevTime) => {
+                if (prevTime <= 0) {
+                    clearInterval(intervalRef.current);
+                    return 0;
+                }
+                return prevTime - 1000;
+            });
         }, 1000);
     }
 
     function handlePause() {
-        clearInterval(intervalRef.current);
+        if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+        }
     }
 
     function handleReset() {
-        clearInterval(intervalRef.current);
+        if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+        }
         setTime(0);
 
         setRawInput("");
         setFormattedText("00:00");
         setIsEditing(true);
     }
+
+    useEffect(() => {
+        setFormattedText(formatTime(time));
+    }, [time]);
 
     return (
         <div className="container">
