@@ -1,14 +1,16 @@
 import React, { useState, useRef } from 'react';
 import './layout.css';
+import { setInterval } from 'timers/promises';
 
 function Timer () {
     const [formattedText, setFormattedText] = useState("00:00");
     const [rawInput, setRawInput] = useState("");    
     const [errMsg, setErrMsg] = useState("");
 
-    const [time, setTime] = useState(0);
-    const [isRunning, setIsRunning] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
+
+    const [time, setTime] = useState(0);
+    const intervalRef = useRef(null);
 
     const handleChange = (event) => {
         // 入力値を取得
@@ -40,20 +42,39 @@ function Timer () {
 
     const formatInput = (input) => {
         const padInput = String(input).padStart(4, "0");
-        const minutes = padInput.slice(0, 2);
-        const seconds = padInput.slice(2, 4);
+        var formattedMinutes = padInput.slice(0, 2);
+        var formattedSeconds = padInput.slice(2, 4);
 
-        return `${minutes}:${seconds}`;
+        if (Number(formattedSeconds) >= 60) {
+            formattedMinutes = (Number(formattedMinutes) + 1).toString();
+            formattedSeconds = (Number(formattedSeconds) - 60).toString();
+        }
+        if (Number(formattedMinutes) > 99) {
+            formattedMinutes = "99";
+        }
+
+        return `${formattedMinutes}:${formattedSeconds}`;
     }
     
     function handleStart() {
+        const inputTime = rawInput.replace(":", "");
+        const minutes = Number(inputTime.slice(0, 2)) * 60000;
+
+        setTime(minutes);
+        
+        intervalRef.current = (() => {
+            setTime(prevTime => prevTime - 1);
+        }, 1000);
     }
 
     function handlePause() {
-
+        clearInterval(intervalRef.current);
     }
 
     function handleReset() {
+        clearInterval(intervalRef.current);
+        setTime(0);
+
         setRawInput("");
         setFormattedText("00:00");
         setIsEditing(true);
@@ -75,9 +96,9 @@ function Timer () {
                 <span><p className="error">{errMsg}</p></span>
             </div>
             <div className="button-area">
-                <button onClick={handleStart}>Start</button>
-                <button onClick={handlePause}>Pause</button>
-                <button onClick={handleReset}>Reset</button>
+                <button onClick={handleStart} className="btn-s">Start</button>
+                <button onClick={handlePause} className="btn-p">Pause</button>
+                <button onClick={handleReset} className="btn-r">Reset</button>
             </div>
         </div>
     )

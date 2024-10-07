@@ -7,22 +7,51 @@ body {
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
 }
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-.error {
-  color: #ff0000;
-  margin: 0;
+.container {
+  height: 100vh;
+  width: 342px;
+  margin: auto;
+  padding-top: 100px;
 }
-
+.input-text:focus {
+  outline: none;
+  border-color: #6f86b6;
+}
 .input-text {
   border: 20px solid #f2f2f2;
   border-radius: 50%;
-  height: 250px;
-  width: 250px;
-  font-size: 50px;
+  height: 300px;
+  width: 300px;
+  font-size: 75px;
   text-align: center;
+  color: #696969;
+}
+.error {
+  color: #ff0000;
+  margin: 0;
+  font-size: 25px;
+}
+.button-area {
+  display: inline;
+  width: 450px;
+  height: 40px;
+}
+button {
+  font-size: 25px;
+  width: 85px;
+  height: 40px;
+}
+.btn-s {
+  margin-left: 33px;
+}
+.btn-r {
+  margin-right: 33px;
+}
+.btn-p {
+  margin-left: 10px;
+  margin-right: 10px;
 }
