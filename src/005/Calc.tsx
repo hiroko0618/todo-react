@@ -5,7 +5,6 @@ import './layout.css';
 
 function Calc () {
     const [input, setInput] = useState("");
-    const [message, setMessage] = useState("");
     const [resetFlg, setResetFlg] = useState(false);
 
     const handleClick = (value) => {
@@ -23,7 +22,6 @@ function Calc () {
             setInput(result.toString());
             setResetFlg(true);
         } catch (e) {
-            setMessage("Error");
             setResetFlg(true);
         }
     }
@@ -35,7 +33,7 @@ function Calc () {
     return (
         <div className="container">
             <div className="output-area">
-                <span>
+                <span className="result">
                     {input != "" ? input : "0"}
                 </span>
             </div>
